@@ -39,31 +39,30 @@ async def _human_time_duration(seconds):
 @Client.on_message(other_filters2)
 async def start(_, message: Message):
         await message.reply_text(
-        f"""Hello {message.from_user.mention()}, My name is {BOT_NAME}.
-I'm a telegram streaming bot with some useful features.
-Feel free to add me to your groups.
+        f"""بە خیربی ئازیزم {message.from_user.mention()}, My name is {BOT_NAME}.
+من بۆتێکی ستریمینگی تەلەگرامم کە چەند تایبەتمەندییەکی بەسوودم هەیە. ئازادانە ئادم بکەن بۆ گروپەکانتان.
         """,
         reply_markup=InlineKeyboardMarkup(
             [
                 [                   
                     InlineKeyboardButton(
-                        "Commands & Help ❔", callback_data="cbbasic"
+                        "فەرمان و یارمەتی ❔", callback_data="cbbasic"
                     ),
                 ],
                 [
                     InlineKeyboardButton(
-                        "How to Use Me ❓", callback_data="cbhowtouse"
+                        "چۆنێتی بەکارهێنانی من ❓", callback_data="cbhowtouse"
                     ),
                   ],[
                     InlineKeyboardButton(
-                       "Updates", url=f"https://t.me/{UPDATES_CHANNEL}"
+                       "کە ناڵی بۆت", url=f"https://t.me/{UPDATES_CHANNEL}"
                     ),
                     InlineKeyboardButton(
-                       "Support", url=f"https://t.me/{GROUP_SUPPORT}"
+                       "گروپی بۆت", url=f"https://t.me/{GROUP_SUPPORT}"
                     )
                 ],[
                     InlineKeyboardButton(
-                        "➕ Add Me To Your Group ➕",
+                        "➕ من زیاد بکە بۆ گروپەکەت ➕",
                         url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
                     )
                 ]
@@ -77,7 +76,7 @@ Feel free to add me to your groups.
 async def help(client: Client, message: Message):
     await message.reply_photo(
         photo=f"https://telegra.ph/file/f01f58c3d9b187ae1d8a1.jpg",
-        caption=f"""Here Is The Source Code Fork And Give Stars ✨""",
+        caption=f"""لێرەدا کۆدی سەرچاوە چنگاڵ و ئەستێرەکان بدە ✨""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
