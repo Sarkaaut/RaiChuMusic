@@ -8,7 +8,7 @@ from pyrogram.errors import UserAlreadyParticipant
 
 
 @Client.on_message(
-    command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot
+    command(["join", f"userbotjoin@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot
 )
 @authorized_users_only
 @errors
@@ -18,14 +18,14 @@ async def join_group(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except BaseException:
         await message.reply_text(
-            "• **I'm not have permission:**\n\n» ❌ __Add Users__",
+            "• **من مۆڵەتم نییە:**\n\n» ❌ __زیادکردنی بە کارهێنە ر__",
         )
         return
 
     try:
         user = await USER.get_me()
     except BaseException:
-        user.first_name = "music assistant"
+        user.first_name = "یاریدەدەری مۆسیقا"
 
     try:
         await USER.join_chat(invitelink)
@@ -34,12 +34,12 @@ async def join_group(client, message):
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"🛑 Flood Wait Error 🛑 \n\n**userbot couldn't join your group due to heavy join requests for userbot**"
-            "\n\n**or add assistant manually to your Group and try again**",
+            f"🛑 Flood Wait Error 🛑 \n\n**userbot couldn't بەشداری گروپەکەت بکە بەهۆی زۆری داواکاری بەشداریکردن بۆ**"
+            "\n\n**یان بە دەستی یاریدەدەر زیاد بکە بۆ گروپەکەت و دووبارە هەوڵبدەرەوە**",
         )
         return
     await message.reply_text(
-        f"**Userbot Succesfully Entered Chat**",
+        f"** بە سەرکەوتوویی چووە ناو چاتەو**",
     )
 
 
@@ -48,11 +48,11 @@ async def join_group(client, message):
 @authorized_users_only
 async def leave_one(client, message):
     try:
-        await USER.send_message(message.chat.id, "✅ Userbot Successfully Left Chat")
+        await USER.send_message(message.chat.id, "✅ بە سەرکەوتوویی چاتی جێهێشت")
         await USER.leave_chat(message.chat.id)
     except BaseException:
         await message.reply_text(
-            "❌ **Userbot couldn't Leave your Group, May be Floodwaits.**\n\n**» or manually kick userbot from your group**"
+            "❌ **نەیتوانی گروپەکەت بەجێبهێڵێت، لەوانەیە Floodwaits بێت.**\n\n**» یان بە دەستی لە گروپەکەتەوە لێبدە**"
         )
 
         return
@@ -66,20 +66,20 @@ async def leave_all(client, message):
 
     left = 0
     failed = 0
-    lol = await message.reply("🔄 **Userbot** Leaving All Chats !")
+    lol = await message.reply("🔄 **بەکارهێنەر بۆت** جێهێشتنی هەموو چاتەکان !")
     async for dialog in USER.iter_dialogs():
         try:
             await USER.leave_chat(dialog.chat.id)
             left += 1
             await lol.edit(
-                f"Userbot leaving all group...\n\nLeft: {left} chats.\nFailed: {failed} chats."
+                f" جێهێشتنی هەموو گروپێک...\n\nLeft: {left} chats.\nFailed: {failed} chats."
             )
         except BaseException:
             failed += 1
             await lol.edit(
-                f"Userbot leaving...\n\nLeft: {left} chats.\nFailed: {failed} chats."
+                f"ڕۆشتن...\n\nLeft: {left} chats.\nFailed: {failed} chats."
             )
         await asyncio.sleep(0.7)
     await client.send_message(
-        message.chat.id, f"✅ Left from: {left} chats.\n❌ Failed in: {failed} chats."
+        message.chat.id, f"✅ بە سە ەکە وتووی رۆشت: {left} chats.\n❌ Failed in: {failed} chats."
     )
