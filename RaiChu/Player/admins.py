@@ -100,7 +100,7 @@ async def stop(client, m: Message):
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await m.reply("✅ The userbot has disconnected from the video chat.")
+            await m.reply("✅ پەیوەندی لە ڤیدیۆ چاتی پچڕاوە.")
         except Exception as e:
             await m.reply(f"🚫 ** هەڵە:**\n\n`{e}`")
     else:
@@ -120,7 +120,7 @@ async def pause(client, m: Message):
                 "⏸ ** تراک وەستا.**\n\n• ** بۆ دەستپێکردنەوەی ستریمەکە، بەکارهێنانی...**\n» /resume command."
             )
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 **هەڵە:**\n\n`{e}`")
     else:
         await m.reply("❌ **nothing in streaming**")
 
@@ -135,12 +135,12 @@ async def resume(client, m: Message):
         try:
             await call_py.resume_stream(chat_id)
             await m.reply(
-                "▶️ **Track resumed.**\n\n• **To pause the stream, use the**\n» /pause command."
+                "▶️ **تراک دەستی پێکردەوە.**\n\n• **بۆ وەستاندنی سترێمەکە، بەکارهێنانی**\n» /pause command."
             )
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 **هەڵە:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **هیچ لە ستریمینگدا نییە**")
 
 
 @Client.on_message(
@@ -153,12 +153,12 @@ async def mute(client, m: Message):
         try:
             await call_py.mute_stream(chat_id)
             await m.reply(
-                "🔇 **Userbot muted.**\n\n• **To unmute the userbot, use the**\n» /unmute command."
+                "🔇 **بێدەنگ کراوە.**\n\n• **بۆ لابردنی بێدەنگی بەکارهێنەر، بەکارهێنانی**\n» /فەرمانی unmute."
             )
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 **هەڵە:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **هیچ لە ستریمینگدا نییە**")
 
 
 @Client.on_message(
@@ -171,111 +171,111 @@ async def unmute(client, m: Message):
         try:
             await call_py.unmute_stream(chat_id)
             await m.reply(
-                "🔊 **Userbot unmuted.**\n\n• **To mute the userbot, use the**\n» /mute command."
+                "🔊 **بێدەنگ نەکراوە.**\n\n• **بۆ بێدەنگکردنی، بەکارهێنانی**\n» /mute فەرمان."
             )
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 **هەڵە:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **هیچ لە ستریمینگدا نییە**")
 
 
 @Client.on_callback_query(filters.regex("cbpause"))
 async def cbpause(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("You're an Anonymous Admin !\n\n» revert back to user account from admin rights.")
+        return await query.answer("تۆ ئەدمینێکی بێناویت !\n\n» گەڕانەوە بۆ ئەکاونتی بەکارهێنەر لە مافی بەڕێوەبەرەوە.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 Only admin with manage voice chats permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 تەنها ئەدمینێک کە مۆڵەتی بەڕێوەبردنی چاتی دەنگی هەیە کە دەتوانێت ئەم دوگمەیە لێبدات !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.pause_stream(chat_id)
             await query.edit_message_text(
-                "⏸ The Streaming Has Paused", reply_markup=bttn
+                "⏸ ستریمینگ وەستاوە", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f"🚫 **Error:**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هەڵە:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ Nothing is currently Streaming", show_alert=True)
+        await query.answer("❌ لە ئێستادا هیچ شتێک Streaming نییە", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbresume"))
 async def cbresume(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("You're an Anonymous Admin !\n\n» revert back to user account from admin rights.")
+        return await query.answer("تۆ ئەدمینێکی بێناویت !\n\n» گەڕانەوە بۆ ئەکاونتی بەکارهێنەر لە مافی بەڕێوەبەرەوە.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 Only admin with manage voice chats permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 تەنها ئەدمینێک کە مۆڵەتی بەڕێوەبردنی چاتی دەنگی هەیە کە دەتوانێت ئەم دوگمەیە لێبدات !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.resume_stream(chat_id)
             await query.edit_message_text(
-                "▶️ The Streaming has Resumed", reply_markup=bttn
+                "▶️ ستریمینگ دەستی پێکردەوە", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f"🚫 **Error:**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هەڵە:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ Nothing is currently Streaming", show_alert=True)
+        await query.answer("❌ لە ئێستادا هیچ شتێک Streaming نییە", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbstop"))
 async def cbstop(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("You're an Anonymous Admin !\n\n» revert back to user account from admin rights.")
+        return await query.answer("تۆ ئەدمینێکی بێناویت !\n\n» گەڕانەوە بۆ ئەکاونتی بەکارهێنەر لە مافی بەڕێوەبەرەوە.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 Only admin with manage voice chats permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 تەنها ئەدمینێک کە مۆڵەتی بەڕێوەبردنی چاتی دەنگی هەیە کە دەتوانێت ئەم دوگمەیە لێبدات !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.leave_group_call(chat_id)
             clear_queue(chat_id)
-            await query.edit_message_text("✅ **This Streaming has Ended**", reply_markup=bcl)
+            await query.edit_message_text("✅ **ئەم ستریمینگە کۆتایی هات**", reply_markup=bcl)
         except Exception as e:
-            await query.edit_message_text(f"🚫 **error:**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هەڵە:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ Nothing is currently Streaming", show_alert=True)
+        await query.answer("❌ لە ئێستادا هیچ شتێک Streaming نییە", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbmute"))
 async def cbmute(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("You're an Anonymous Admin !\n\n» revert back to user account from admin rights.")
+        return await query.answer("تۆ ئەدمینێکی بێناویت !\n\n» گەڕانەوە بۆ ئەکاونتی بەکارهێنەر لە مافی بەڕێوەبەرەوە.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 Only admin with manage voice chats permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 تەنها ئەدمینێک کە مۆڵەتی بەڕێوەبردنی چاتی دەنگی هەیە کە دەتوانێت ئەم دوگمەیە لێبدات !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.mute_stream(chat_id)
             await query.edit_message_text(
-                "🔇 Userbot Succesfully Muted", reply_markup=bttn
+                "🔇 بە سەرکەوتوویی بێدەنگ کرا", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f"🚫 **Error:**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هەڵە:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ Nothing is currently Streaming", show_alert=True)
+        await query.answer("❌ لە ئێستادا هیچ شتێک Streaming نییە", show_alert=True)
 
 
 @Client.on_callback_query(filters.regex("cbunmute"))
 async def cbunmute(_, query: CallbackQuery):
     if query.message.sender_chat:
-        return await query.answer("you're an Anonymous Admin !\n\n» revert back to user account from admin rights.")
+        return await query.answer("تۆ ئەدمینێکی بێناویت !\n\n» گەڕانەوە بۆ ئەکاونتی بەکارهێنەر لە مافی بەڕێوەبەرەوە.")
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 only admin with manage voice chats permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 تەنها ئەدمینێک کە مۆڵەتی بەڕێوەبردنی چاتی دەنگی هەیە کە دەتوانێت ئەم دوگمەیە لێبدات !", show_alert=True)
     chat_id = query.message.chat.id
     if chat_id in QUEUE:
         try:
             await call_py.unmute_stream(chat_id)
             await query.edit_message_text(
-                "🔊 userbot succesfully unmuted", reply_markup=bttn
+                "🔊 بە سەرکەوتوویی بێدەنگ نەکرا", reply_markup=bttn
             )
         except Exception as e:
-            await query.edit_message_text(f"🚫 **error:**\n\n`{e}`", reply_markup=bcl)
+            await query.edit_message_text(f"🚫 **هەڵە:**\n\n`{e}`", reply_markup=bcl)
     else:
-        await query.answer("❌ nothing is currently streaming", show_alert=True)
+        await query.answer("❌ لە ئێستادا هیچ شتێک لە ستریمدا نییە", show_alert=True)
 
 
 @Client.on_message(
@@ -289,27 +289,27 @@ async def change_volume(client, m: Message):
         try:
             await call_py.change_volume_call(chat_id, volume=int(range))
             await m.reply(
-                f"✅ **Volume set To** `{range}`%"
+                f"✅ **دەنگی دانراو** `{range}`%"
             )
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
-    else:
-        await m.reply("❌ **Nothing in Streaming**")
+            await m.reply(f"🚫 **هەڵە:**\n\n`{e}`")
+     
+        await m.reply("❌ **هیچ لە ستریمینگدا نییە**")
 
 @Client.on_callback_query(filters.regex("cbskip"))
 async def cbskip(_, query: CallbackQuery):
     a = await _.get_chat_member(query.message.chat.id, query.from_user.id)
     if not a.can_manage_voice_chats:
-        return await query.answer("💡 Only admin with manage video chat permission that can tap this button !", show_alert=True)
+        return await query.answer("💡 تەنها ئەدمینێک کە مۆڵەتی manage video chat ی هەیە کە دەتوانێت ئەم دوگمەیە لێبدات !", show_alert=True)
     chat_id = query.message.chat.id
     user_id = query.from_user.id
     queue = await skip_current_song(chat_id)
     if queue == 0:
-        await query.answer("❌ Nothing is Currently Playing", show_alert=True)
+        await query.answer("❌ هیچ شتێک لە ئێستادا كار ناکات", show_alert=True)
     elif queue == 1:
-        await query.answer("» There's no more Music in Queue to Skip, Userbot leaving Video Chat.", show_alert=True)
+        await query.answer("» ئیتر هیچ میوزیکێک لە Queue بۆ Skip نییە، ڤیدیۆ چاتی بەجێدەهێڵێت.", show_alert=True)
     elif queue == 2:
-        await query.answer("🗑️ Clearing the **Queues**\n\n» **Userbot** leaving Video Chat.", show_alert=True)
+        await query.answer("🗑️ Clearing the **Queues**\n\n» **Bot Music Kurdish** جێهێشتنی ڤیدیۆ چات.", show_alert=True)
     else:
         await query.answer("goes to the next track, proccessing...")
         await query.message.delete()
@@ -325,6 +325,6 @@ async def cbskip(_, query: CallbackQuery):
             chat_id,
             photo=image,
             reply_markup=InlineKeyboardMarkup(buttons),
-            caption=f"⏭ **Skipped** to the next track.\n\n🗂 **Name:** [{queue[0]}]({queue[1]})\n💭 **Chat:** `{chat_id}`\n🧸 **Request by:** {requester}",
+            caption=f"⏭ ** بۆ تراکی داهاتوو.\n\n🗂 **ناو:** [{queue[0]}]({queue[1]})\n💭 **چات:** `{chat_id}`\n🧸 **داواکاری لەلایەن:** {requester}",
         )
         remove_if_exists(image)
