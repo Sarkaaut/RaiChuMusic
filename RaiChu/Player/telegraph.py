@@ -4,11 +4,11 @@ from telegraph import upload_file
 
 from Process.main import bot as app
 
-@app.on_message(filters.command(["telegraph", "tm", "tgm"]))
+@app.on_message(filters.command(["تەلەگراف", "tm", "tgm"]))
 async def telegraph(client, message):
     replied = message.reply_to_message
     if not replied:
-        await message.reply("Reply to a supported media file")
+        await message.reply("وەڵامدانەوە بۆ فایلێکی میدیایی پشتگیریکراو")
         return
     if not (
         (replied.photo and replied.photo.file_size <= 5242880)
@@ -26,7 +26,7 @@ async def telegraph(client, message):
             and replied.document.file_size <= 5242880
         )
     ):
-        await message.reply("Not supported!")
+        await message.reply("پاڵپشتیی نەکراوە!")
         return
     download_location = await client.download_media(
         message=message.reply_to_message,
@@ -38,7 +38,7 @@ async def telegraph(client, message):
         await message.reply(message, text=document)
     else:
         await message.reply(
-            f"**Yooo!\n\n👉 https://telegra.ph{response[0]}**",
+            f"**ئە وە!\n\n👉 https://telegra.ph{response[0]}**",
             disable_web_page_preview=True,
         )
     finally:
