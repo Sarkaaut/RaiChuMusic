@@ -80,15 +80,15 @@ async def get_uptime(client: Client, message: Message):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        "🤖 🅡🅐🅘🅒🅗🅤  🅑🅞🅣  🅢🅣🅐🅣🅢:\n"
-        f"➤ **ᴜᴘᴛɪᴍᴇ:** `{uptime}`\n"
-        f"➤ **sᴛᴀʀᴛ ᴛɪᴍᴇ:** `{START_TIME_ISO}`"
+        "🤖 Bot Music Kurdish:\n"
+        f"➤ ** کاتی کارکردن:** `{uptime}`\n"
+        f"➤ ** کاتی ده‌ست پێکردن:** `{START_TIME_ISO}`"
     )
 
 @Client.on_message(command(["ping", f"ping@{BOT_USERNAME}"]) & ~filters.edited)
 async def ping_pong(client: Client, message: Message):
     start = time()
-    m_reply = await message.reply_text("ᴘɪɴɢɪɴɢ...")
+    m_reply = await message.reply_text("پینگێ...")
     delta_ping = time() - start
     await m_reply.edit_text(
         "✈ `ᴘᴏɴɢ!!`\n"
@@ -101,15 +101,15 @@ async def start(client: Client, message: Message):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
     await message.reply_text(
-        f"""✔ **ʙᴏᴛ ɪs ʀᴜɴɴɪɴɢ**\n<b>☣ **ᴜᴘᴛɪᴍᴇ:**</b> `{uptime}`""",
+        f"""✔ **بۆتە کە کار دە کات**\n<b>☣ ** کاتی کارکردن:**</b> `{uptime}`""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "☢ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "☢گروپ", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "📣کە ناڵ", url=f"https://t.me/{UPDATES_CHANNEL}"
                     )
                 ]
             ]
@@ -120,12 +120,12 @@ async def start(client: Client, message: Message):
 @Client.on_message(command(["help", f"help@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>☢ ʜᴇʟʟᴏ {message.from_user.mention()}, ᴘʟᴇᴀsᴇ ᴛᴀᴘ ᴛʜᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴛᴏ sᴇᴇ ᴛʜᴇ ʜᴇʟᴘ ᴍᴇssᴀɢᴇ ʏᴏᴜ ᴄᴀɴ ʀᴇᴀᴅ ғᴏʀ ᴜsɪɴɢ ᴛʜɪs ʙᴏᴛ</b>""",
+        f"""<b>☢ یارمەتیدان {message.from_user.mention()}, تکایە دوگمەی خوارەوە بکە بۆ بینینی پەیامی یارمەتی کە دەتوانیت بیخوێنیتەوە بۆ ئەم بۆتە </b>""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="✔ ʜᴏᴡ ᴛᴏ ᴜsᴇ ᴍᴇ", url=f"https://t.me/{BOT_USERNAME}?start=help"
+                        text="✔  چۆنێتی بەکارهێنانی من", url=f"https://t.me/{BOT_USERNAME}?start=help"
                     )
                 ]
             ]
