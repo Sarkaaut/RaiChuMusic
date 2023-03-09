@@ -120,7 +120,7 @@ async def start(client: Client, message: Message):
 @Client.on_message(command(["help", f"help@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>☢ یارمەتیدان {message.from_user.mention()}, تکایە دوگمەی خوارەوە بکە بۆ بینینی پەیامی یارمەتی کە دەتوانیت بیخوێنیتەوە بۆ ئەم بۆتە </b>""",
+        f"""<b>☢ سڵاو ئازیزم {message.from_user.mention()}, تکایە دوگمەی خوارەوە بکە بۆ بینینی پەیامی یارمەتی کە دەتوانیت بیخوێنیتەوە بۆ ئەم بۆتە </b>""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
