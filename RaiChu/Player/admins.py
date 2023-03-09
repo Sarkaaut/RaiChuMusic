@@ -16,26 +16,26 @@ from pyrogram.types import (
 from RaiChu.inline import stream_markup
 
 bttn = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("🔙 Go Back", callback_data="cbmenu")]]
+    [[InlineKeyboardButton("🔙 بڕۆ بۆ دواوە", callback_data="cbmenu")]]
 )
 
 
 bcl = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("🗑 Close", callback_data="cls")]]
+    [[InlineKeyboardButton("🗑 داخستن", callback_data="cls")]]
 )
 
 
-@Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["دووبارە بارکردنەوە", f"reload@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def update_admin(client, message):
     global admins
     new_admins = []
-    new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
+    new_ads = await client.get_chat_members(message.chat.id, filter="کارگێڕان")
     for u in new_ads:
         new_admins.append(u.user.id)
     admins[message.chat.id] = new_admins
     await message.reply_text(
-        "✅ Bot **reloaded correctly !**\n✅ **Admin list** has **updated !**"
+        "✅بۆت ** بە دروستی بارکرایەوە!**\n✅ ** لیستی ئەدمینەکان** هەیەتی ** نوێکراوەتەوە!**"
     )
 
 
@@ -60,20 +60,20 @@ async def skip(client, m: Message):
     if len(m.command) < 2:
         op = await skip_current_song(chat_id)
         if op == 0:
-            await m.reply("❌ nothing is currently playing")
+            await m.reply("❌ لە ئێستادا هیچ شتێک كار ناکات")
         elif op == 1:
-            await m.reply("✅ __Queues__ **is empty.**\n\n**• userbot leaving voice chat**")
+            await m.reply("✅ __ ڕیزەکان__ ** به‌تاڵه‌.**\n\n**• جێهێشتنی چاتی دەنگی**")
         elif op == 2:
-            await m.reply("🗑️ **Clearing the Queues**\n\n**• userbot leaving voice chat**")
+            await m.reply("🗑️ ** پاککردنەوەی نزیکییەکان**\n\n**• جێهێشتنی چاتی دەنگی**")
         else:
             await m.reply_photo(
                 photo=f"{IMG_3}",
-                caption=f"⏭ **Skipped to the next track.**\n\n🏷 **Name:** [{op[0]}]({op[1]})\n💭 **Chat:** `{chat_id}`\n💡 **Status:** `Playing`\n🎧 **Request by:** {m.from_user.mention()}",
+                caption=f"⏭ ** پەڕینەوە بۆ تراکی داهاتوو.**\n\n🏷 ** ناو:** [{op[0]}]({op[1]})\n💭 ** چات:** `{chat_id}`\n💡 ** دۆخ:** `ئیش پی کردن`\n🎧 ** داواکاری لەلایەن:** {m.from_user.mention()}",
                 reply_markup=keyboard,
             )
     else:
         skip = m.text.split(None, 1)[1]
-        OP = "🗑 **removed song from queue:**"
+        OP = "🗑 ** گۆرانی لە نزیکی لابرا:**"
         if chat_id in QUEUE:
             items = [int(x) for x in skip.split(" ") if x.isdigit()]
             items.sort(reverse=True)
@@ -102,9 +102,9 @@ async def stop(client, m: Message):
             clear_queue(chat_id)
             await m.reply("✅ The userbot has disconnected from the video chat.")
         except Exception as e:
-            await m.reply(f"🚫 **error:**\n\n`{e}`")
+            await m.reply(f"🚫 ** هەڵە:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing is streaming**")
+        await m.reply("❌ ** هیچ شتێک ستریم نییە**")
 
 
 @Client.on_message(
@@ -117,7 +117,7 @@ async def pause(client, m: Message):
         try:
             await call_py.pause_stream(chat_id)
             await m.reply(
-                "⏸ **Track paused.**\n\n• **To resume the stream, use the**\n» /resume command."
+                "⏸ ** تراک وەستا.**\n\n• ** بۆ دەستپێکردنەوەی ستریمەکە، بەکارهێنانی...**\n» /resume command."
             )
         except Exception as e:
             await m.reply(f"🚫 **error:**\n\n`{e}`")
