@@ -122,7 +122,7 @@ async def pause(client, m: Message):
         except Exception as e:
             await m.reply(f"🚫 **هەڵە:**\n\n`{e}`")
     else:
-        await m.reply("❌ **nothing in streaming**")
+        await m.reply("❌ **هیچ لە ستریمینگدا نییە**")
 
 
 @Client.on_message(
