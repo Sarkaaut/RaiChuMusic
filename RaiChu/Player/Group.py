@@ -91,7 +91,7 @@ async def ping_pong(client: Client, message: Message):
     m_reply = await message.reply_text("پینگێ...")
     delta_ping = time() - start
     await m_reply.edit_text(
-        "✈ `ᴘᴏɴɢ!!`\n"
+        "✈ `پینگ!!`\n"
         f"☣ `{delta_ping * 1000:.3f} ᴍs`"
     )
 
